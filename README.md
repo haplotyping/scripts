@@ -1,3 +1,3 @@
 # Scripts 
 
-Several bash scripts to prepare data
+Several scripts to prepare and process data

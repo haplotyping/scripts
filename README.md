@@ -9,7 +9,7 @@ Make sure to configure at least the correct location of
 * readfiles
 * k-mer databases
 * temporary storage
-* kmc_analysis binary
+* binaries [kmc](https://github.com/refresh-bio/KMC) and [kmc_analysis](https://github.com/haplotyping/kmc_analysis)
 
 Additionally, number of threads, k-mer size and frequency range can be adjusted
 

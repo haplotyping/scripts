@@ -2,6 +2,8 @@
 
 LOCATION_KMERDATABASE=data/index/full
 
+KMCANALYSIS=source/kmc_analysis/bin/kmc_analysis
+
 THREADS=20
 MINIMUM_FREQ=2
 MAXIMUM_FREQ=100000000
@@ -11,7 +13,7 @@ for i in $(find "$LOCATION_KMERDATABASE" -type d); do
         if [ -e "$f" ] ;
         then
             echo "$i"
-            source/kmc_analysis/bin/kmc_analysis dump "$i/kmer.kmc" \
+            eval $KMCANALYSIS dump "$i/kmer.kmc" \
 		"$i/kmer.list" -min "$MINIMUM_FREQ" -max "$MAXIMUM_FREQ" -rc
             sort --parallel="$THREADS" "$i/kmer.list" > "$i/kmer.list.sorted"
             gzip -f "$i/kmer.list.sorted"

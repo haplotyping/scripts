@@ -18,7 +18,7 @@ for i in $(find "$LOCATION_KMERDATABASE" -type d); do
             else
                 echo "PROCESS $i"
                 eval $KMCANALYSIS dump "$i/kmer.kmc" \
-		    "$i/kmer.list" -min "$MINIMUM_FREQ" -max "$MAXIMUM_FREQ" -rc
+                "$i/kmer.list" -min "$MINIMUM_FREQ" -max "$MAXIMUM_FREQ" -rc
                 sort --parallel="$THREADS" "$i/kmer.list" > "$i/kmer.list.sorted"
                 gzip -f "$i/kmer.list.sorted"
                 rm "$i/kmer.list"

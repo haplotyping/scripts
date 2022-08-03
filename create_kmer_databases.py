@@ -1,9 +1,8 @@
 #!python3
-import os,sys,requests,logging
+import os,sys,logging
 locationHaplotypingPackage = "../haplotyping"
 if not locationHaplotypingPackage in sys.path: sys.path.insert(0, locationHaplotypingPackage)
 import haplotyping.index
-import h5py, tables, numpy as np
 
 logging.basicConfig(format="%(asctime)s | %(name)s |  %(levelname)s: %(message)s", datefmt="%m-%d-%y %H:%M:%S")
 logging.getLogger("haplotyping.index.database").setLevel(logging.DEBUG)
@@ -26,8 +25,7 @@ if len(sys.argv) == 6:
     database = haplotyping.index.Database(k, name, 
                                            locationOutputBase, locationSortedList, 
                                            unpairedReadFiles, pairedReadFiles, 
-                                           maximumProcesses=threads,
-                                           debug=False)
+                                           maximumProcesses=threads)
 else:
     raise Exception("call: {} <directoryReadFiles> <locationSortedList> <locationOutputBase> <threads> <name>".format(
         sys.argv[0]))

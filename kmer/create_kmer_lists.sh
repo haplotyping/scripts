@@ -1,8 +1,8 @@
 #/bin/bash
 
-LOCATION_KMERDATABASE=data/index/full
+LOCATION_KMERDATABASE=data/index
 
-KMCANALYSIS=source/kmc_analysis/bin/kmc_analysis
+KMCANALYSIS=../../kmc_analysis/bin/kmc_analysis
 
 THREADS=20
 MINIMUM_FREQ=2

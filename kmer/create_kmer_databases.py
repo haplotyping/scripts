@@ -1,6 +1,6 @@
 #!python3
 import os,sys,logging
-locationHaplotypingPackage = "../haplotyping"
+locationHaplotypingPackage = "../../haplotyping"
 if not locationHaplotypingPackage in sys.path: sys.path.insert(0, locationHaplotypingPackage)
 import haplotyping.index
 

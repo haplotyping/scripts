@@ -1,7 +1,7 @@
 #/bin/bash
 
-LOCATION_READFILES=data/reads/full
-LOCATION_KMERDATABASE=data/index/full
+LOCATION_READFILES=data/reads
+LOCATION_KMERDATABASE=data/index
 LOCATION_TMP=tmp
 
 KMC=kmc
@@ -10,6 +10,8 @@ THREADS=20
 KMER_SIZE=31
 MINIMUM_FREQ=2
 MAXIMUM_FREQ=65535
+
+mkdir -p "$LOCATION_TMP"
 
 for i in $({ cd "$LOCATION_READFILES" && find . -type d; }); do 
     for f in "$LOCATION_READFILES"/"$i"/*.fastq.gz; do

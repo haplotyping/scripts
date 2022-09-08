@@ -1,7 +1,7 @@
 #/bin/bash
 
-LOCATION_READFILES=data/reads/full
-LOCATION_KMERDATABASE=data/index/full
+LOCATION_READFILES=data/reads
+LOCATION_KMERDATABASE=data/index
 PYTHONBINARY=python
 PYTHONSCRIPT=create_kmer_databases.py
 THREADS=20

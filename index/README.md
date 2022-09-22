@@ -1,4 +1,4 @@
-# Scripts 
+# Create splitting k-mer databases
 
 Several scripts to prepare and process data
 

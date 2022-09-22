@@ -2,6 +2,6 @@
 
 Several scripts to prepare and process data
 
-* [index](./index/): create k-mer index
-* [service](./service/): create database for service
+* [index](./index/): create splitting k-mer databases
+* [service](./service/): create database for REST service
 

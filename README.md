@@ -2,6 +2,6 @@
 
 Several scripts to prepare and process data
 
-* [create k-mer index](./index/)
-* [create database for service](./service/)
+* [index](./index/): create k-mer index
+* [service](./service/): create database for service
 

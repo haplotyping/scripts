@@ -1,5 +1,9 @@
 #!python3
-import os, sys, logging, libraries.dmValidator as dmValidator
+import os, sys, logging
+
+locationHaplotypingPackage = "../../haplotyping"
+if not locationHaplotypingPackage in sys.path: sys.path.insert(0, locationHaplotypingPackage)
+import haplotyping.data
 
 logging.basicConfig(format="%(asctime)s - %(message)s", datefmt="%Y-%m-%d %H:%M:%S", level=logging.INFO)
 
@@ -8,7 +12,6 @@ pedigreeName = "pedigree.xlsx"
 
 # Get the total number of args passed
 dataPath = os.path.join(os.path.dirname(os.path.realpath(__file__)),"data")
-schemaPath = os.path.join(os.path.dirname(os.path.realpath(__file__)),"schema")
 if os.path.isfile(os.path.join(dataPath,pedigreeName)):
     pedigreePackage = os.path.splitext(pedigreeName)[0]+".package.json"
     pedigreeReport = os.path.splitext(pedigreeName)[0]+".report.txt"
@@ -33,7 +36,7 @@ if os.path.isfile(os.path.join(dataPath,pedigreeName)):
             os.remove(os.path.join(dataPath,pedigreePackage))
         if os.access(os.path.join(dataPath,pedigreeReport), os.R_OK):
             os.remove(os.path.join(dataPath,pedigreeReport))
-        validator = dmValidator.ValidatePedigree(dataPath,schemaPath,pedigreeName)
+        validator = haplotyping.data.ValidatePedigree(dataPath,pedigreeName)
         with open(os.path.join(dataPath,pedigreeReport), "w") as f:
             f.write(validator.createTextReport())
         validator.createPackageJSON(os.path.join(dataPath,pedigreePackage))
@@ -80,7 +83,7 @@ if os.path.isfile(os.path.join(dataPath,pedigreeName)):
                 else:
                     os.remove(os.path.join(dataPath,filenameReport))
         print("=== validate {} ===".format(filename))
-        validator = dmValidator.ValidateData(dataPath,schemaPath,filename,pedigreePackage)
+        validator = haplotyping.data.ValidateData(dataPath,filename,pedigreePackage)
         with open(os.path.join(dataPath,filenameReport), "w") as f:
             f.write(validator.createTextReport())
         validator.createPackageJSON(os.path.join(dataPath,filenamePackage))

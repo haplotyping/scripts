@@ -1,18 +1,9 @@
 #/bin/bash
 
-#==============================================
-# SETTINGS
-#==============================================
+cd "$(dirname "$0")"
+. config
 
-LOCATION_READFILES=data/reads
-LOCATION_KMERDATABASE=data/index
-PYTHONBINARY=python
 PYTHONSCRIPT=create_kmer_databases.py
-THREADS=20
-
-#==============================================
-# SCRIPT
-#==============================================
 
 for i in $({ cd "$LOCATION_KMERDATABASE" && find . -type d; }); do 
     for f in "$LOCATION_KMERDATABASE"/"$i"/kmer.data.step1.h5; do

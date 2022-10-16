@@ -1,15 +1,7 @@
 #/bin/bash
 
-LOCATION_READFILES=data/reads
-LOCATION_KMERDATABASE=data/index
-LOCATION_TMP=tmp
-
-KMC=kmc
-
-THREADS=20
-KMER_SIZE=31
-MINIMUM_FREQ=2
-MAXIMUM_FREQ=65535
+cd "$(dirname "$0")"
+. config
 
 mkdir -p "$LOCATION_TMP"
 

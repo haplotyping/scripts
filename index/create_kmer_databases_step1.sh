@@ -1,14 +1,9 @@
 #/bin/bash
 
-#==============================================
-# SETTINGS
-#==============================================
+cd "$(dirname "$0")"
+. config
 
-LOCATION_READFILES=data/reads
-LOCATION_KMERDATABASE=data/index
-PYTHONBINARY=python
 PYTHONSCRIPT=create_kmer_databases_step1.py
-THREADS=20
 
 #==============================================
 # SCRIPT

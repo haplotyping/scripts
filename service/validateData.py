@@ -1,5 +1,5 @@
 #!python3
-import os, sys, logging
+import os, sys, logging, configparser
 
 locationHaplotypingPackage = "../../haplotyping"
 if not locationHaplotypingPackage in sys.path: sys.path.insert(0, locationHaplotypingPackage)
@@ -12,6 +12,11 @@ pedigreeName = "pedigree.xlsx"
 
 # Get the total number of args passed
 dataPath = os.path.join(os.path.dirname(os.path.realpath(__file__)),"data")
+config = configparser.ConfigParser()
+configFile = os.path.join(os.path.dirname(os.path.realpath(__file__)),"config.ini")
+with open(configFile, "r") as f:
+    config.read_file(f)
+dataPath = config.get("PATHS","data")
 if os.path.isfile(os.path.join(dataPath,pedigreeName)):
     pedigreePackage = os.path.splitext(pedigreeName)[0]+".package.json"
     pedigreeReport = os.path.splitext(pedigreeName)[0]+".report.txt"
@@ -92,5 +97,4 @@ if os.path.isfile(os.path.join(dataPath,pedigreeName)):
             os.utime(os.path.join(dataPath,filenamePackage), (mtime, mtime))
             print("=== couldn't validate {} ===".format(filename))                                    
 else:
-    print("no pedigree detected: {}".format(os.path.join(dataPath,pedigreePackage)))        
-
+    print("no pedigree detected: {}".format(os.path.join(dataPath,pedigreeName)))        

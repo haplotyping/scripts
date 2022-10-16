@@ -1,10 +1,9 @@
 #/bin/bash
 
-LOCATION_READFILES=data/reads
-LOCATION_KMERDATABASE=data/index
-PYTHONBINARY=python
+cd "$(dirname "$0")"
+. config
+
 PYTHONSCRIPT=create_kmer_databases.py
-THREADS=20
 
 for i in $({ cd "$LOCATION_KMERDATABASE" && find . -type d; }); do 
     for f in "$LOCATION_KMERDATABASE"/"$i"/kmer.list.sorted.gz; do

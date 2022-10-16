@@ -7,6 +7,8 @@ import haplotyping.data
 
 logging.basicConfig(format="%(asctime)s - %(message)s", datefmt="%Y-%m-%d %H:%M:%S", level=logging.INFO)
 
-dataPath = os.path.join(os.path.dirname(os.path.realpath(__file__)),"data")
-exportPath = os.path.join(os.path.dirname(os.path.realpath(__file__)),"export")
-haplotyping.data.ConstructDatabase(dataPath, exportPath)
+config = configparser.ConfigParser()
+configFile = os.path.join(os.path.dirname(os.path.realpath(__file__)),"config.ini")
+with open(configFile, "r") as f:
+    config.read_file(f)
+haplotyping.data.ConstructDatabase(config.get("PATHS","data"), config.get("PATHS","export"))

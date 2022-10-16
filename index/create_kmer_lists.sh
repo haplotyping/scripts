@@ -1,12 +1,7 @@
 #/bin/bash
 
-LOCATION_KMERDATABASE=data/index
-
-KMCANALYSIS=../../kmc_analysis/bin/kmc_analysis
-
-THREADS=20
-MINIMUM_FREQ=2
-MAXIMUM_FREQ=100000000
+cd "$(dirname "$0")"
+. config
 
 for i in $(find "$LOCATION_KMERDATABASE" -type d); do 
     for f in "$i"/kmer.kmc.*; do

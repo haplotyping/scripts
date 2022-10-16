@@ -1,4 +1,4 @@
-The reads provided in `[demo_reads](../demo_reads/)`
+The reads provided in [demo_reads](../demo_reads/)
 ```
 resource1/demo1/reads.fastq.gz
 resource1/demo1/reads_R1_001.fastq.gz

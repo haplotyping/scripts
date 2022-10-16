@@ -7,7 +7,7 @@ resource1/demo2/reads.fastq.gz
 resource1/demo2/reads_R1_001.fastq.gz
 resource1/demo2/reads_R2_001.fastq.gz
 ```
-will result in 
+will result, after succesfully applying the provided scripts, in
 * kmc files
   ```
   resource1/demo1/kmer.kmc.kmc_pre
@@ -20,7 +20,7 @@ will result in
   resource1/demo1/kmer.list.sorted.gz
   resource1/demo2/kmer.list.sorted.gz
   ```
- * and finally k-mer databases
+ * and k-mer databases
   ```
   resource1/demo1/kmer.data.h5
   resource1/demo2/kmer.data.h5

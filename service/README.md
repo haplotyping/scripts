@@ -6,10 +6,12 @@ Several scripts to process Excel files into a SQLite database for the REST servi
 * **constructDatabase.py** : construct a SQLite database from the validated Excel files
 * **checkDatabase.py** : check existance of locations and files referred to in the SQLite database
 
-Make sure to configure the correct location of 
-* Excel files (./data/)
-* Export location database (./export/)
-
+Before running these script, create a file `config.ini` defining the location of the Excel files and the export location for the database.
+```
+[PATHS]
+data: demo_data
+export: demo_export
+```
 
 ## Excel files
 

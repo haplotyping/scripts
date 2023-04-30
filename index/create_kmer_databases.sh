@@ -23,7 +23,7 @@ for i in $({ cd "$LOCATION_KMERDATABASE" && find . -type d; }); do
             else
                 echo "PROCESS $i"
                 touch "$LOCATION_KMERDATABASE"/"$i/kmer.data.h5.lock"
-                eval $PYTHONBINARY $PYTHONSCRIPT "\"${LOCATION_READFILES}/${i}\"" "\"${LOCATION_KMERDATABASE}/${i}/kmer.list.sorted.gz\"" "\"${LOCATION_KMERDATABASE}/${i}/kmer.data\"" "${THREADS}" "\"${i}\""
+                eval $PYTHONBINARY $PYTHONSCRIPT "\"${LOCATION_READFILES}/${i}\"" "\"${LOCATION_KMERDATABASE}/${i}/kmer.list.sorted.gz\"" "\"${LOCATION_KMERDATABASE}/${i}/kmer.data\"" "${THREADS}" "\"${i}\"" "${MAXIMUM_MEMORY}"
                 rm "$LOCATION_KMERDATABASE"/"$i/kmer.data.h5.lock"
             fi
         fi

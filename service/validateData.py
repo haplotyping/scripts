@@ -1,6 +1,7 @@
-#!python3
+#!/usr/bin/env python3
 import os, sys, logging, configparser
 
+#TODO: use public repository (when finished)
 locationHaplotypingPackage = "../../haplotyping"
 if not locationHaplotypingPackage in sys.path: sys.path.insert(0, locationHaplotypingPackage)
 import haplotyping.data

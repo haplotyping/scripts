@@ -20,8 +20,13 @@ will result, after succesfully applying the provided scripts, in
   resource1/demo1/kmer.list.sorted.gz
   resource1/demo2/kmer.list.sorted.gz
   ```
- * and k-mer databases
+ * k-mer databases
   ```
   resource1/demo1/kmer.data.h5
   resource1/demo2/kmer.data.h5
+  ```
+ * and logfiles
+  ```
+  resource1/demo1/kmer.data.log
+  resource1/demo2/kmer.data.log
   ```

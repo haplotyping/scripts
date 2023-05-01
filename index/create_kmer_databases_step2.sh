@@ -26,7 +26,7 @@ for i in $({ cd "$LOCATION_KMERDATABASE" && find . -type d; }); do
                     echo "PROCESS $i"
                     touch "$LOCATION_KMERDATABASE"/"$i/kmer.data.h5.lock"
                     cp "$LOCATION_KMERDATABASE"/"$i/kmer.data.step1.h5" "$LOCATION_KMERDATABASE"/"$i/kmer.data.h5"
-                    eval $PYTHONBINARY $PYTHONSCRIPT "\"${LOCATION_READFILES}/${i}\"" "\"${LOCATION_KMERDATABASE}/${i}/kmer.list.sorted.gz\"" "\"${LOCATION_KMERDATABASE}/${i}/kmer.data\"" "${THREADS}" "\"${i}\""
+                    eval $PYTHONBINARY $PYTHONSCRIPT "\"${LOCATION_READFILES}/${i}\"" "\"${LOCATION_KMERDATABASE}/${i}/kmer.list.sorted.gz\"" "\"${LOCATION_KMERDATABASE}/${i}/kmer.data\"" "${THREADS}" "\"${i}\"" "${MAXIMUM_MEMORY}"
                     rm "$LOCATION_KMERDATABASE"/"$i/kmer.data.h5.lock"
                     rm "$LOCATION_KMERDATABASE"/"$i/kmer.data.step1.h5"
                 fi

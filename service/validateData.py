@@ -1,9 +1,5 @@
 #!/usr/bin/env python3
 import os, sys, logging, configparser
-
-#TODO: use public repository (when finished)
-locationHaplotypingPackage = "../../haplotyping"
-if not locationHaplotypingPackage in sys.path: sys.path.insert(0, locationHaplotypingPackage)
 import haplotyping.data
 
 logging.basicConfig(format="%(asctime)s - %(message)s", datefmt="%Y-%m-%d %H:%M:%S", level=logging.INFO)

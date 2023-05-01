@@ -27,6 +27,7 @@ THREADS=10
 KMER_SIZE=31
 MINIMUM_FREQ=2
 MAXIMUM_FREQ=65535
+MAXIMUM_MEMORY=10737418240
 ```
 
 Check and/or adjust the correct location of 
@@ -35,7 +36,7 @@ Check and/or adjust the correct location of
 * temporary storage
 * binaries [kmc](https://github.com/refresh-bio/KMC) and [kmc_analysis](https://github.com/haplotyping/kmc_analysis)
 
-Additionally, number of threads, k-mer size and frequency range can be adjusted
+Additionally, number of threads, k-mer size, frequency range and maximum memory usage can be adjusted
 
 Directories will be traversed recursively
 

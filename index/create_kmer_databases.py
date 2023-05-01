@@ -1,7 +1,5 @@
 #!python3
 import os,sys,logging
-locationHaplotypingPackage = "../../haplotyping"
-if not locationHaplotypingPackage in sys.path: sys.path.insert(0, locationHaplotypingPackage)
 import haplotyping.index
 
 if len(sys.argv) == 7:
@@ -12,8 +10,8 @@ if len(sys.argv) == 7:
     threads = int(sys.argv[4])
     name  = sys.argv[5]
     memory  = int(sys.argv[6])
-    debug = True
-    keepTemporaryFiles = True
+    debug = False
+    keepTemporaryFiles = False
     
     logging.basicConfig(format="%(asctime)s | %(name)s |  %(levelname)s: %(message)s", datefmt="%m-%d-%y %H:%M:%S",
                    handlers=[logging.FileHandler(locationOutputBase+".log", mode="w"), logging.StreamHandler()])
@@ -34,7 +32,9 @@ if len(sys.argv) == 7:
                                            locationOutputBase, locationSortedList, 
                                            unpairedReadFiles, pairedReadFiles, 
                                            maximumProcesses=threads,
-                                           maximumMemory=memory, keepTemporaryFiles=keepTemporaryFiles, debug=debug)
+                                           maximumMemory=memory, 
+                                           keepTemporaryFiles=keepTemporaryFiles, 
+                                           debug=debug)
 else:
     raise Exception("call: {} <directoryReadFiles> <locationSortedList> <locationOutputBase> <threads> <name> <memory>".format(
         sys.argv[0]))

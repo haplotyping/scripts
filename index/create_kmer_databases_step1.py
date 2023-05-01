@@ -1,7 +1,5 @@
 #!python3
 import os,sys,logging
-locationHaplotypingPackage = "../../haplotyping"
-if not locationHaplotypingPackage in sys.path: sys.path.insert(0, locationHaplotypingPackage)
 import haplotyping.index
 
 logging.basicConfig(format="%(asctime)s | %(name)s |  %(levelname)s: %(message)s", datefmt="%m-%d-%y %H:%M:%S")

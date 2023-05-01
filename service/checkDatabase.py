@@ -8,4 +8,4 @@ config = configparser.ConfigParser()
 configFile = os.path.join(os.path.dirname(os.path.realpath(__file__)),"config.ini")
 with open(configFile, "r") as f:
     config.read_file(f)
-haplotyping.data.CheckDatabase(config.get("PATHS","export"))
+haplotyping.data.CheckDatabase(config.get("PATHS","service"))

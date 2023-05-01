@@ -5,7 +5,7 @@ data_resource1.xlsx
 data_resource2.xlsx
 data_resource2.csv.gz
 ```
-will result, after succesfully applying the provided scripts, in a sqlite database with additional files for markers and k-mer data
+will here result, after succesfully applying the provided scripts, in a sqlite database with additional files for markers and k-mer data
 ```
 db.sqlite
 identifiers.json

@@ -1,17 +1,22 @@
 #!python3
 import os,sys,logging
-#locationHaplotypingPackage = "../../haplotyping"
-#if not locationHaplotypingPackage in sys.path: sys.path.insert(0, locationHaplotypingPackage)
+import importlib.util
+#fallback to local version
+if importlib.util.find_spec("haplotyping")==None:
+    print("TRYING TO USE LOCAL VERSION OF HAPLOTYPING PACKAGE")
+    locationHaplotypingPackage = "../../haplotyping"
+    if not locationHaplotypingPackage in sys.path: sys.path.insert(0, locationHaplotypingPackage)
+#now, import haplotyping software
 import haplotyping.index
 
-if len(sys.argv) == 7:
-    
+if len(sys.argv) == 8:
     directoryReadFiles = os.path.realpath(sys.argv[1])
     locationSortedList = os.path.realpath(sys.argv[2])
     locationOutputBase = os.path.realpath(sys.argv[3])
     threads = int(sys.argv[4])
     name  = sys.argv[5]
     memory  = int(sys.argv[6])
+    indexType = sys.argv[7]
     debug = False
     keepTemporaryFiles = False
     
@@ -19,7 +24,7 @@ if len(sys.argv) == 7:
                    handlers=[logging.FileHandler(locationOutputBase+".log", mode="w"), logging.StreamHandler()])
     logging.getLogger("haplotyping.index.database").setLevel(logging.DEBUG)
     logging.getLogger("haplotyping.index.splits").setLevel(logging.DEBUG)
-    logging.getLogger("haplotyping.index.direct").setLevel(logging.DEBUG)
+    logging.getLogger("haplotyping.index.connections").setLevel(logging.DEBUG)
     logging.getLogger("haplotyping.index.storage").setLevel(logging.DEBUG)
     logging.getLogger("haplotyping.index.storage.worker.automaton").setLevel(logging.DEBUG)
     logging.getLogger("haplotyping.index.storage.worker.index").setLevel(logging.DEBUG)
@@ -34,9 +39,10 @@ if len(sys.argv) == 7:
                                            locationOutputBase, locationSortedList, 
                                            unpairedReadFiles, pairedReadFiles, 
                                            maximumProcesses=threads,
-                                           maximumMemory=memory, 
+                                           maximumMemory=memory,
+                                           indexType=indexType,
                                            keepTemporaryFiles=keepTemporaryFiles, 
                                            debug=debug)
 else:
-    raise Exception("call: {} <directoryReadFiles> <locationSortedList> <locationOutputBase> <threads> <name> <memory>".format(
-        sys.argv[0]))
+    raise Exception("call: {} <directoryReadFiles> <locationSortedList> <locationOutputBase> ".format(sys.argv[0])+
+                    "<threads> <name> <memory> <indexType>")

@@ -1,11 +1,18 @@
 #!/usr/bin/env python3
 import os, sys, logging, configparser
+import importlib.util
+#fallback to local version
+if importlib.util.find_spec("haplotyping")==None:
+    print("TRYING TO USE LOCAL VERSION OF HAPLOTYPING PACKAGE")
+    locationHaplotypingPackage = "../../haplotyping"
+    if not locationHaplotypingPackage in sys.path: sys.path.insert(0, locationHaplotypingPackage)
+#now, import haplotyping software
 import haplotyping.data
 
 logging.basicConfig(format="%(asctime)s - %(message)s", datefmt="%Y-%m-%d %H:%M:%S", level=logging.INFO)
 
 postfix = ".xlsx"
-pedigreeName = "pedigree.xlsx"
+indexName = "index.xlsx"
 
 # Get the total number of args passed
 dataPath = os.path.join(os.path.dirname(os.path.realpath(__file__)),"data")
@@ -14,46 +21,46 @@ configFile = os.path.join(os.path.dirname(os.path.realpath(__file__)),"config.in
 with open(configFile, "r") as f:
     config.read_file(f)
 dataPath = config.get("PATHS","data")
-if os.path.isfile(os.path.join(dataPath,pedigreeName)):
-    pedigreePackage = os.path.splitext(pedigreeName)[0]+".package.json"
-    pedigreeReport = os.path.splitext(pedigreeName)[0]+".report.txt"
-    #validate pedigree
-    validatePedigree = True
-    if os.access(os.path.join(dataPath,pedigreeName), os.R_OK):
-        if (os.access(os.path.join(dataPath,pedigreePackage), os.R_OK) 
-            and os.access(os.path.join(dataPath,pedigreeReport), os.R_OK)):
-            validatePedigree = False
-            if (os.path.getmtime(os.path.join(dataPath,pedigreeName))>=
-                os.path.getmtime(os.path.join(dataPath,pedigreePackage))):
-                validatePedigree = True
-            elif (os.path.getmtime(os.path.join(dataPath,pedigreeName))>=
-                  os.path.getmtime(os.path.join(dataPath,pedigreeReport))):
-                validatePedigree = True        
+if os.path.isfile(os.path.join(dataPath,indexName)):
+    indexPackage = os.path.splitext(indexName)[0]+".package.json"
+    indexReport = os.path.splitext(indexName)[0]+".report.txt"
+    #validate index
+    validateIndex = True
+    if os.access(os.path.join(dataPath,indexName), os.R_OK):
+        if (os.access(os.path.join(dataPath,indexPackage), os.R_OK) 
+            and os.access(os.path.join(dataPath,indexReport), os.R_OK)):
+            validateIndex = False
+            if (os.path.getmtime(os.path.join(dataPath,indexName))>=
+                os.path.getmtime(os.path.join(dataPath,indexPackage))):
+                validateIndex = True
+            elif (os.path.getmtime(os.path.join(dataPath,indexName))>=
+                  os.path.getmtime(os.path.join(dataPath,indexReport))):
+                validateIndex = True        
     else:
-        raise Exception("=== couldn't find {} ===".format(pedigreeName))
+        raise Exception("=== couldn't find {} ===".format(indexName))
     #only validate if tests are passed
-    if validatePedigree:
-        print("=== validate {} ===".format(pedigreeName))
-        if os.access(os.path.join(dataPath,pedigreePackage), os.R_OK):
-            os.remove(os.path.join(dataPath,pedigreePackage))
-        if os.access(os.path.join(dataPath,pedigreeReport), os.R_OK):
-            os.remove(os.path.join(dataPath,pedigreeReport))
-        validator = haplotyping.data.ValidatePedigree(dataPath,pedigreeName)
-        with open(os.path.join(dataPath,pedigreeReport), "w") as f:
+    if validateIndex:
+        print("=== validate index '{}' ===".format(indexName))
+        if os.access(os.path.join(dataPath,indexPackage), os.R_OK):
+            os.remove(os.path.join(dataPath,indexPackage))
+        if os.access(os.path.join(dataPath,indexReport), os.R_OK):
+            os.remove(os.path.join(dataPath,indexReport))
+        validator = haplotyping.data.ValidateIndex(dataPath,indexName)
+        with open(os.path.join(dataPath,indexReport), "w") as f:
             f.write(validator.createTextReport())
-        validator.createPackageJSON(os.path.join(dataPath,pedigreePackage))
+        validator.createPackageJSON(os.path.join(dataPath,indexPackage))
         if not validator.valid:
-            mtime = os.path.getmtime(os.path.join(dataPath,pedigreeName))
-            os.utime(os.path.join(dataPath,pedigreePackage), (mtime, mtime))
-            print("=== couldn't validate {} ===".format(pedigreeName))
+            mtime = os.path.getmtime(os.path.join(dataPath,indexName))
+            os.utime(os.path.join(dataPath,indexPackage), (mtime, mtime))
+            print("=== couldn't validate {} ===".format(indexName))
             os._exit(0)                
     else:
-        print("=== skip validation {} (no changes) ===".format(pedigreeName))    
+        print("=== skip validation {} (no changes) ===".format(indexName))    
     #now process all files
     filenames = []
     for filename in os.listdir(dataPath):
         if os.path.isfile(os.path.join(dataPath,filename)):
-            if filename==pedigreeName:
+            if filename==indexName:
                 pass
             elif filename.endswith(postfix):                    
                 filenames.append(filename)
@@ -63,7 +70,7 @@ if os.path.isfile(os.path.join(dataPath,pedigreeName)):
         filenamePackage = os.path.splitext(filename)[0]+".package.json"
         filenameReport = os.path.splitext(filename)[0]+".report.txt"
         if os.access(os.path.join(dataPath,filename), os.R_OK):
-            if validatePedigree:
+            if validateIndex:
                 if os.access(os.path.join(dataPath,filenamePackage), os.R_OK):
                     os.remove(os.path.join(dataPath,filenamePackage))
                 if os.access(os.path.join(dataPath,filenameReport), os.R_OK):
@@ -84,8 +91,8 @@ if os.path.isfile(os.path.join(dataPath,pedigreeName)):
                     continue 
                 else:
                     os.remove(os.path.join(dataPath,filenameReport))
-        print("=== validate {} ===".format(filename))
-        validator = haplotyping.data.ValidateData(dataPath,filename,pedigreePackage)
+        print("=== validate resource '{}' ===".format(filename))
+        validator = haplotyping.data.ValidateData(dataPath,filename,indexPackage)
         with open(os.path.join(dataPath,filenameReport), "w") as f:
             f.write(validator.createTextReport())
         validator.createPackageJSON(os.path.join(dataPath,filenamePackage))
@@ -94,4 +101,4 @@ if os.path.isfile(os.path.join(dataPath,pedigreeName)):
             os.utime(os.path.join(dataPath,filenamePackage), (mtime, mtime))
             print("=== couldn't validate {} ===".format(filename))                                    
 else:
-    print("no pedigree detected: {}".format(os.path.join(dataPath,pedigreeName)))        
+    print("no index detected: {}".format(os.path.join(dataPath,indexName)))        

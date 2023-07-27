@@ -17,7 +17,7 @@ for i in $({ cd "$LOCATION_READFILES" && find . -type d; }); do
     	            echo "SKIP $i"
         	    else
             	    echo "PROCESS $i"
-                	find -E "$LOCATION_READFILES"/"$i" -regex ".*(\.fastq\.gz|\.fq\.gz)" > "$LOCATION_KMERDATABASE"/"$i/kmer.lst"
+                	find "$LOCATION_READFILES"/"$i" -regextype egrep -regex ".*(\.fastq\.gz|\.fq\.gz)" > "$LOCATION_KMERDATABASE"/"$i/kmer.lst"
 	                eval $KMC -k"$KMER_SIZE" -ci"$MINIMUM_FREQ" \
     	               -cs"$MAXIMUM_FREQ" -t"$THREADS" \
         	           @"$LOCATION_KMERDATABASE"/"$i/kmer.lst" "$LOCATION_KMERDATABASE"/"$i/kmer.kmc" "$LOCATION_TMP"

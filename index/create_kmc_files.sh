@@ -7,7 +7,8 @@ mkdir -p "$LOCATION_TMP"
 
 for i in $({ cd "$LOCATION_READFILES" && find . -type d; }); do 
     for f in "$LOCATION_READFILES"/"$i"/*; do
-    	if [[ ${f} =~ .*\.fastq\.gz ]] || [[ ${f} =~ .*\.fq\.gz ]]
+    	if [[ ${f} =~ .*\.fastq\.gz ]] || [[ ${f} =~ .*\.fq\.gz ]] ;
+    	then
         	if [ -e "$f" ] ;
         	then
          	   mkdir -p "$LOCATION_KMERDATABASE"/"$i"

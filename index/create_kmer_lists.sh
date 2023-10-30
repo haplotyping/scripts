@@ -3,6 +3,9 @@
 cd "$(dirname "$0")"
 . config
 
+command -v sort >/dev/null 2>&1 || { echo >&2 "sort required but it's not installed.  Aborting."; exit 1; }
+command -v pigz >/dev/null 2>&1 || { echo >&2 "pigz required but it's not installed.  Aborting."; exit 1; }
+
 for i in $(find "$LOCATION_KMERDATABASE" -type d); do 
     for f in "$i"/kmer.kmc.*; do
         if [ -e "$f" ] ;

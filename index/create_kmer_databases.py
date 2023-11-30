@@ -3,9 +3,9 @@ import os,sys,logging
 import importlib.util
 
 #use spawn, also on linux
-import multiprocessing as mp
-if __name__ == "__main__":
-    mp.set_start_method("spawn")
+# import multiprocessing as mp
+# if __name__ == "__main__":
+#     mp.set_start_method("spawn")
 
 #fallback to local version
 if importlib.util.find_spec("haplotyping")==None:
